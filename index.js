@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+
+require("dotenv").config();
+let port = process.env.PORT;
+
+app.use('/healthcheck', require('./routes/healthchecker'))
+
 app.use(express.json())
 
 app.get('/', (request,response) => {
@@ -16,6 +22,6 @@ app.post('/save/:name' , (request,response) => {
     response.json({data: request.params})
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Server has started");
 })
